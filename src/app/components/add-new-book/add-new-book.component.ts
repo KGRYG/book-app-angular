@@ -11,25 +11,27 @@ import {NgForm} from '@angular/forms';
 })
 export class AddNewBookComponent implements OnInit {
   @ViewChild('f') slForm: NgForm;
-  private newBook: Book = new Book();
-  private bookAdded = false;
+  newBook: Book = new Book();
+  bookAdded = false;
+  languages: string [] = ['English', 'Spanish'];
+  categories: string [] = ['Management', 'Fiction', 'Engineering', 'Programming', 'Arts & Literature'];
+  formats: string [] = ['Paperback', 'Hardcover', 'E-book'];
 
   constructor(private addBookService: AddBookService,
               private uploadImageService: UploadImageService) { }
 
   ngOnInit() {
+    this.newBook.active = true;
+    this.newBook.category = this.categories[0];
+    this.newBook.language = this.languages[0];
+    this.newBook.format = this.formats[0];
   }
 
   onSubmit() {
     this.addBookService.sendBook(this.newBook).subscribe(
       res => {
-        this.uploadImageService.upload(JSON.parse(JSON.parse(JSON.stringify(res))._body).id);
+        this.uploadImageService.upload(res.json().id);
         this.bookAdded = true;
-        this.newBook = new Book();
-        this.newBook.active = true;
-        this.newBook.category = 'Management';
-        this.newBook.language = 'english';
-        this.newBook.format = 'paperback';
       },
       error => {
         console.log(error);

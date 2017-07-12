@@ -44,17 +44,12 @@
         <md-grid-tile></md-grid-tile>
         <md-grid-tile [colspan]="2" [rowspan]="1">
           <md-select placeholder="Category" id="category" name="category" [(ngModel)]="newBook.category">
-            <md-option value="Management">Management</md-option>
-            <md-option value="Fiction">Fiction</md-option>
-            <md-option value="Engineering">Engineering</md-option>
-            <md-option value="Programming">Programming</md-option>
-            <md-option value="Arts &amp; Literature">Arts &amp; Literature</md-option>
+            <md-option *ngFor="let category of categories" [value]="category">{{category}}</md-option>
           </md-select>
         </md-grid-tile>
         <md-grid-tile [colspan]="2" [rowspan]="1">
           <md-select placeholder="Format" id="format" name="format" [(ngModel)]="newBook.format">
-            <md-option value="paperback">Paperback</md-option>
-            <md-option value="hardcover">Hardcover</md-option>
+            <md-option *ngFor="let format of formats" [value]="format">{{format}}</md-option>
           </md-select>
         </md-grid-tile>
       </md-grid-list>
@@ -96,8 +91,7 @@
         </md-grid-tile>
         <md-grid-tile [colspan]="2" [rowspan]="1">
           <md-select placeholder="Language" id="language" name="language" [(ngModel)]="newBook.language">
-            <md-option value="english">English</md-option>
-            <md-option value="spanish">Spanish</md-option>
+            <md-option *ngFor="let language of languages" [value]="language">{{language}}</md-option>
           </md-select>
         </md-grid-tile>
       </md-grid-list>
