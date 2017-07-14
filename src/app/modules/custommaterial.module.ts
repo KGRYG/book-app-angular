@@ -6,6 +6,7 @@ import {
   MdCardModule,
   MdCheckboxModule,
   MdDatepickerModule,
+  MdDialogModule,
   MdIconModule,
   MdInputModule,
   MdMenuModule,
@@ -34,6 +35,7 @@ import {
     MdTabsModule,
     MdDatepickerModule,
     BrowserAnimationsModule,
+    MdDialogModule,
     MdGridListModule,
     MdSlideToggleModule
   ]

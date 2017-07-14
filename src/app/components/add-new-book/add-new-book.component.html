@@ -117,7 +117,7 @@
         </md-grid-tile>
         <md-grid-tile [colspan]="1" [rowspan]="1">
           <button class="mat-primary" md-raised-button (click)="imgFileInput.click()" type="button">Add a photo</button>
-          <input hidden #imgFileInput type="file" id="bookImage" name="bookImage" (change)="uploadImageService.fileChangeEvent($event)">
+          <input hidden #imgFileInput type="file" id="bookImage" name="bookImage" (change)="fileChangeEvent($event)">
         </md-grid-tile>
       </md-grid-list>
 

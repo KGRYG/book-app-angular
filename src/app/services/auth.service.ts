@@ -15,7 +15,7 @@ export class AuthService {
       'Content-Type' : 'application/x-www-form-urlencoded',
       'Authorization' : basicHeader
     });
-    return this.http.get(url, {headers: headers});
+    return this.http.get(url, {headers: headers, withCredentials: true});
   }
 
   checkSession() {
@@ -23,7 +23,7 @@ export class AuthService {
     let headers = new Headers ({
       'x-auth-token' : localStorage.getItem('xAuthToken')
     });
-    return this.http.get(url, {headers: headers});
+    return this.http.get(url, {headers: headers, withCredentials: true});
   }
 
   isAuthenticated() {
@@ -36,6 +36,6 @@ export class AuthService {
       'x-auth-token' : localStorage.getItem('xAuthToken')
     });
 
-    return this.http.post(url, '', {headers: headers});
+    return this.http.post(url, '', {headers: headers, withCredentials: true});
   }
 }

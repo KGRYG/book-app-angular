@@ -16,6 +16,7 @@ export class AddNewBookComponent implements OnInit {
   languages: string [] = ['English', 'Spanish'];
   categories: string [] = ['Management', 'Fiction', 'Engineering', 'Programming', 'Arts & Literature'];
   formats: string [] = ['Paperback', 'Hardcover', 'E-book'];
+  filesToUpload: Array<File> = [];
 
   constructor(private addBookService: AddBookService,
               private uploadImageService: UploadImageService) { }
@@ -30,13 +31,19 @@ export class AddNewBookComponent implements OnInit {
   onSubmit() {
     this.addBookService.sendBook(this.newBook).subscribe(
       res => {
-        this.uploadImageService.upload(res.json().id);
+        if (this.filesToUpload.length > 0) {
+          this.uploadImageService.upload(res.json().id, this.filesToUpload);
+        }
         this.bookAdded = true;
       },
       error => {
         console.log(error);
       }
     );
+  }
+
+  fileChangeEvent(fileInput: any) {
+    this.filesToUpload = <Array<File>> fileInput.target.files;
   }
 
 }

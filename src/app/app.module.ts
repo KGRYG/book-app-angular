@@ -14,13 +14,24 @@ import { AddNewBookComponent } from './components/add-new-book/add-new-book.comp
 import {UploadImageService} from './services/upload-image.service';
 import {AddBookService} from './services/add-book.service';
 import {AuthGuard} from './services/auth-guard.service';
+import {BookListComponent, DialogResultExampleDialogComponent} from './components/book-list/book-list.component';
+import {GetBookListService} from './services/get-book-list.service';
+import {RemoveBookService} from './services/remove-book.service';
+import { ViewBookComponent } from './components/view-book/view-book.component';
+import {GetBookService} from './services/get-book.service';
+import { EditBookComponent } from './components/edit-book/edit-book.component';
+import {EditBookService} from './services/edit-book.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     LoginComponent,
-    AddNewBookComponent
+    AddNewBookComponent,
+    BookListComponent,
+    DialogResultExampleDialogComponent,
+    ViewBookComponent,
+    EditBookComponent
   ],
   imports: [
     BrowserModule,
@@ -28,9 +39,17 @@ import {AuthGuard} from './services/auth-guard.service';
     HttpModule,
     CustomMaterialModule,
     AppRoutingModule
-
   ],
-  providers: [AuthService, UploadImageService, AddBookService, AuthGuard],
+  entryComponents: [DialogResultExampleDialogComponent],
+  providers: [
+    AuthService,
+    UploadImageService,
+    AddBookService,
+    AuthGuard,
+    GetBookListService,
+    RemoveBookService,
+    GetBookService,
+    EditBookService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

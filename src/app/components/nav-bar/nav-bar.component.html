@@ -2,7 +2,7 @@
   <h3 [style.color]="'white;'">Admin Portal</h3>
   <span class="example-spacer"></span>
   <ng-template [ngIf]="authService.isAuthenticated()">
-    <a md-button>View Book List</a>
+    <a md-button routerLink="booklist">View Book List</a>
     <a md-button routerLink="addNewBook">Add a Book</a>
     <a md-button (click)="onLogOut()">Logout</a>
   </ng-template>

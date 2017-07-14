@@ -4,33 +4,27 @@ import * as myGlobals from '../globals';
 @Injectable()
 export class UploadImageService {
 
-  filesToUpload: Array<File>;
-
   constructor() {
-    this.filesToUpload = [];
   }
 
-  upload(bookId: number) {
-    this.makeFileRequest(myGlobals.BASE_API_URL + '/book/add/image?id=' + bookId, [], this.filesToUpload).then((result) => {
-      console.log(result);
-    }, (error) => {
-      console.log(error);
-    });
+  upload(bookId: number, filesToUpload: Array<File>) {
+    this.makeFileRequest(myGlobals.BASE_API_URL + '/book/add/image?id=' + bookId, [], filesToUpload).then(
+      (result) => {
+        console.log(result);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
-  modify(bookId: number) {
-    console.log(this.filesToUpload);
-    if (this.filesToUpload.length > 0) {
-      this.makeFileRequest(myGlobals.BASE_API_URL + '/book/update/image?id=' + bookId, [], this.filesToUpload).then((result) => {
-      console.log(result);
+  modify(bookId: number, filesToUpload: Array<File>) {
+    if (filesToUpload.length > 0) {
+      this.makeFileRequest(myGlobals.BASE_API_URL + '/book/update/image?id=' + bookId, [], filesToUpload).then((result) => {
     }, (error) => {
       console.log(error);
     });
     }
-  }
-
-  fileChangeEvent(fileInput: any) {
-    this.filesToUpload = <Array<File>> fileInput.target.files;
   }
 
   makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
@@ -50,9 +44,27 @@ export class UploadImageService {
         }
       }
       xhr.open('POST', url, true);
+      xhr.withCredentials = true;
+      xhr.setRequestHeader('X-XSRF-TOKEN', this.getCookie('XSRF-TOKEN'));
       xhr.setRequestHeader('x-auth-token', localStorage.getItem('xAuthToken'));
       xhr.send(formData);
     });
+  }
+
+  getCookie(cname) {
+    var name = cname + '=';
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for ( var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return '';
   }
 
 }
