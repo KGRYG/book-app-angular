@@ -1,23 +1,21 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Book} from '../../models/book';
 import {GetBookListService} from '../../services/get-book-list.service';
 import {Router} from '@angular/router';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {RemoveBookService} from '../../services/remove-book.service';
-import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.css']
 })
-export class BookListComponent implements OnInit, OnDestroy {
+export class BookListComponent implements OnInit {
 
   selectedBook: Book;
   bookList: Book[];
   allChecked: boolean;
   removeBookList: Book[] = [];
-  // private subscription: Subscription;
 
   constructor(
     private getBookListService: GetBookListService,
@@ -28,17 +26,6 @@ export class BookListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getBookList();
-
-    // this.subscription = this.removeBookService.bookListChanged
-    //   .subscribe(
-    //     (bookList: Book[]) => {
-    //       this.bookList = bookList;
-    //     }
-    // );
-  }
-
-  ngOnDestroy() {
-    // this.subscription.unsubscribe();
   }
 
   onSelect(book: Book) {
@@ -46,7 +33,7 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/viewBook', this.selectedBook.id]);
   }
 
-  openDialog(book: Book, index: number) {
+  openDialog(book: Book) {
     const dialogRef = this.dialog.open(DialogResultExampleDialogComponent);
     dialogRef.afterClosed().subscribe(
       result => {
@@ -54,7 +41,6 @@ export class BookListComponent implements OnInit, OnDestroy {
           this.removeBookService.sendBook(book.id).subscribe(
             res => {
               this.bookList.splice(this.bookList.indexOf(book), 1);
-              // this.getBookList();
             },
             err => {
               console.log(err);
