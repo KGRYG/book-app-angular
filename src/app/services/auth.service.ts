@@ -13,7 +13,8 @@ export class AuthService {
     let basicHeader = 'Basic ' + encodedCredentials;
     let headers = new Headers ({
       'Content-Type' : 'application/x-www-form-urlencoded',
-      'Authorization' : basicHeader
+      'Authorization' : basicHeader,
+      'X-Requested-With': 'XMLHttpRequest'
     });
     return this.http.get(url, {headers: headers, withCredentials: true});
   }

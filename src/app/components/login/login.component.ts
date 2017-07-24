@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
     this.authService.sendCredentials(this.credential.username, this.credential.password)
       .subscribe(
         res => {
-          console.log(res);
           localStorage.setItem('xAuthToken', res.json().token);
           this.router.navigate(['/']);
         },
